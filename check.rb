@@ -20,7 +20,14 @@ class Station
   end
 
   def description
-    "#{name}: #{available_bikes} bikes, #{available_docks} docks, #{broken_bikes} reds"
+    bikes = fmt available_bikes
+    docks = fmt available_docks
+    reds = fmt broken_bikes
+    "#{name}: #{bikes} bikes, #{docks} docks, #{reds} reds"
+  end
+
+  def fmt(i)
+    i.to_s.rjust(2)
   end
 end
 
