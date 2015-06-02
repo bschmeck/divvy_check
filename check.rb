@@ -4,21 +4,23 @@ require 'json'
 require 'open-uri'
 
 class Station
-  attr_accessor :id, :name, :available_bikes, :available_docks
+  attr_accessor :id, :name, :available_bikes, :available_docks, :broken_bikes
   def initialize(id, name)
     @id = id
     @name = name
     @available_bikes = 0
     @available_docks = 0
+    @broken_bikes = 0
   end
 
   def update_from_feed(data)
     @available_bikes = data["availableBikes"]
     @available_docks = data["availableDocks"]
+    @broken_bikes = data["totalDocks"] - data["availableBikes"] - data["availableDocks"]
   end
 
   def description
-    "#{name} has #{available_bikes} bikes and #{available_docks} open docks"
+    "#{name}: #{available_bikes} bikes, #{available_docks} docks, #{broken_bikes} reds"
   end
 end
 
