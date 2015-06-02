@@ -24,7 +24,9 @@ end
 
 stations = {
   48 => Station.new(48, "600w"),
-  74 => Station.new(74, "Erie")
+  74 => Station.new(74, "Erie"),
+  111 => Station.new(74, "Huron"),
+  364 => Station.new(364, "Oak"),
 }
 
 while true do
