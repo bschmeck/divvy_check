@@ -31,6 +31,14 @@ class Station
   end
 end
 
+def get_station_data
+  raw = open("http://www.divvybikes.com/stations/json").read
+  json = JSON.parse raw
+  yield json
+rescue SocketError
+  nil
+end
+
 stations = {
   48 => Station.new(48, "600w"),
   74 => Station.new(74, "Erie"),
@@ -39,22 +47,17 @@ stations = {
 }
 
 while true do
-  begin
-    raw = open("http://www.divvybikes.com/stations/json").read
-  rescue SocketError
-    sleep 60
-    next
-  end
-  json = JSON.parse raw
-  station_data = json["stationBeanList"].each do |station_data|
-    station = stations[station_data["id"]]
-    next unless station
+  get_station_data do |json|
+    station_data = json["stationBeanList"].each do |station_data|
+      station = stations[station_data["id"]]
+      next unless station
 
-    station.update_from_feed(station_data)
-  end
+      station.update_from_feed(station_data)
+    end
 
-  station_list = stations.sort.map{|s| s[1] }
-  puts "#{Time.now.strftime("%-I:%M%P")} | #{station_list.map(&:description).join(" | ")}"
+    station_list = stations.sort.map{|s| s[1] }
+    puts "#{Time.now.strftime("%-I:%M%P")} | #{station_list.map(&:description).join(" | ")}"
+  end
 
   sleep 60
 end
