@@ -39,7 +39,12 @@ stations = {
 }
 
 while true do
-  raw = open("http://www.divvybikes.com/stations/json").read
+  begin
+    raw = open("http://www.divvybikes.com/stations/json").read
+  rescue SocketError
+    sleep 60
+    next
+  end
   json = JSON.parse raw
   station_data = json["stationBeanList"].each do |station_data|
     station = stations[station_data["id"]]
