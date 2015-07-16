@@ -56,7 +56,7 @@ while true do
     end
 
     station_list = stations.sort.map{|s| s[1] }
-    puts "#{Time.now.strftime("%-I:%M%P")} | #{station_list.map(&:description).join(" | ")}"
+    puts "#{Time.now.strftime("%_I:%M%P")} | #{station_list.map(&:description).join(" | ")}"
   end
 
   sleep 60
