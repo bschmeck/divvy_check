@@ -35,7 +35,8 @@ def get_station_data
   raw = open("http://www.divvybikes.com/stations/json").read
   json = JSON.parse raw
   yield json
-rescue SocketError, Errno::EHOSTUNREACH, Errno::ENETDOWN, JSON::ParserError
+rescue Exception => e
+  puts "Err: #{e.class}"
   nil
 end
 
