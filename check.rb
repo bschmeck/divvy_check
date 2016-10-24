@@ -41,10 +41,10 @@ rescue Exception => e
 end
 
 stations = {
-  48 => Station.new(48, "600w"),
+  111 => Station.new(111, "Sedgwick"),
   74 => Station.new(74, "Erie"),
-  111 => Station.new(74, "Huron"),
-  364 => Station.new(364, "Oak"),
+  53 => Station.new(53, "Wells"),
+  212 => Station.new(212, "Orleans")
 }
 
 while true do
