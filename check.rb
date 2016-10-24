@@ -32,7 +32,7 @@ class Station
 end
 
 def get_station_data
-  raw = open("http://www.divvybikes.com/stations/json").read
+  raw = open("https://feeds.divvybikes.com/stations/stations.json").read
   json = JSON.parse raw
   yield json
 rescue Exception => e
